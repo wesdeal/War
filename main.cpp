@@ -11,7 +11,6 @@
  *
  */
 #include <iostream>
-#include <vector>
 #include "card.h"
 #include "deck.h"
 #include "player.h"
@@ -45,28 +44,28 @@ int main()
     // create an object of Player class: testPlayer
     Player testPlayer(cards_for_Player);
     cout << "Testing Player class..." << endl;
-    cout << "At beginning, player has " << testPlayer.getNumCards(cards_for_Player) << " cards in hand!" << endl;
+    cout << "At beginning, player has " << testPlayer.getNumCards() << " cards in hand!" << endl;
     cout << "Cards in player's hand are:" << endl;
-    testPlayer.print(cards_for_Player);
+    testPlayer.print();
     cout << "Player plays one card: ";
-    Card faceup = testPlayer.play_a_card(cards_for_Player);
+    Card faceup = testPlayer.play_a_card();
     faceup.print();
 
-    vector<Card> dropCards = testPlayer.dropCards(cards_for_Player);
+    vector<Card> dropCards = testPlayer.dropCards();
     if (dropCards.size() == 0)
     {
-        cout << endl << "Not enough cards to drop, player now has " << testPlayer.getNumCards(cards_for_Player) << " cards in hand!" << endl;
+        cout << endl << "Not enough cards to drop, player now has " << testPlayer.getNumCards() << " cards in hand!" << endl;
     }
     else
     {
-        cout << endl << "After dropping THREE cards, player now has " << testPlayer.getNumCards(cards_for_Player) << " cards in hand!" << endl;
+        cout << endl << "After dropping THREE cards, player now has " << testPlayer.getNumCards() << " cards in hand!" << endl;
     }
 
-    faceup = testPlayer.play_a_card(cards_for_Player);
+    faceup = testPlayer.play_a_card();
     cout << "Player plays one more card: ";
     faceup.print();
 
-    cout << endl << "After playing one more card, player now has " << testPlayer.getNumCards(cards_for_Player) << " cards in hand!" << endl;
+    cout << endl << "After playing one more card, player now has " << testPlayer.getNumCards() << " cards in hand!" << endl;
 
     // take 5 cards from the pile, pretend to be winning cards
     vector<Card> winningCards;
@@ -77,32 +76,32 @@ int main()
     }
 
     //pretend that testPlayer wins, and gets all winning cards
-    testPlayer.addCards(winningCards, cards_for_Player);
-    cout << "After winning FIVE cards on the pile, player now has " << testPlayer.getNumCards(cards_for_Player) << " cards in hand!" << endl;
+    testPlayer.addCards(winningCards);
+    cout << "After winning FIVE cards on the pile, player now has " << testPlayer.getNumCards() << " cards in hand!" << endl;
     cout << "Now cards in player's hand are: " << endl;
-    testPlayer.print(cards_for_Player);
+    testPlayer.print();
 
     //simulate that testPlayer repeatedly plays ONE card, then drops THREE cards...
     //till testPlayer has no more card in hand
     cout << endl << "Simulation starts here:" << endl;
     cout << "\t\ttestPlayer repeatedly plays ONE card, then drops THREE cards..." << endl;
     cout << "\t\tUntil no more card in hand" << endl;
-    while (testPlayer.getNumCards(cards_for_Player) > 0)
+    while (testPlayer.getNumCards() > 0)
     {
         cout << "Cards in player's hand are:" << endl;
-        testPlayer.print(cards_for_Player);
+        testPlayer.print();
         cout << "Player plays one card: ";
-        Card faceup = testPlayer.play_a_card(cards_for_Player);
+        Card faceup = testPlayer.play_a_card();
         faceup.print();
 
-        dropCards = testPlayer.dropCards(cards_for_Player);
+        dropCards = testPlayer.dropCards();
         if (dropCards.size() == 0)
         {
-            cout << endl << "Not enough cards to drop, player now has " << testPlayer.getNumCards(cards_for_Player) << " cards in hand!" << endl;
+            cout << endl << "Not enough cards to drop, player now has " << testPlayer.getNumCards() << " cards in hand!" << endl;
         }
         else
         {
-            cout << endl << "After dropping THREE cards, player now has " << testPlayer.getNumCards(cards_for_Player) << " cards in hand!" << endl;
+            cout << endl << "After dropping THREE cards, player now has " << testPlayer.getNumCards() << " cards in hand!" << endl;
         }
     }
     cout << "Game is over!" << endl;

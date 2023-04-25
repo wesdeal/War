@@ -1,80 +1,79 @@
 #include <vector>
-#include <list>
-#include <iostream>
-#include "player.h"
 #include "card.h"
-#include "deck.h"
+#include "player.h"
 
-Player::Player() {
+using namespace std;
 
+Player::Player()
+{
+    numCards = 0;
 }
 
-Player::Player(vector<Card> ini_cards){
-
+Player::Player(vector<Card> ini_cards)
+{
+    numCards = ini_cards.size(); //vector size is same as starting card amount
 }
 
-int Player::getNumCards(vector<Card> cards_for_Player) const {
-   
-    // return how many cards player holds currently 
-    int numCards = cards_for_Player.size();
-
+int Player::getNumCards() const
+{
     return numCards;
 }
 
-
-Card Player::play_a_card(vector<Card> cards_for_Player) {
-    
-    //take from top of cards_for_Player
-    Card card;
-    card = cards_for_Player.front();
-
-    cards_for_Player.erase(cards_for_Player.begin());
- 
-    return Card(card);
+Card Player::play_a_card()
+{
+    Card playCard = cards.front();
+    cards.pop_front();
+    numCards -= 1;
+    return playCard; //return playCard
 }
 
-void Player::addCards(vector<Card> winningCards, vector<Card> cards_for_Player) {
-
-    //add all elements of winningCards to players hand
-    //then remove those elements from winning cards
-
-    for (int i = 0; i < winningCards.size(); i++) {
-
-        cards_for_Player.push_back(winningCards.front());
-        winningCards.erase(winningCards.begin());
-    }
-
-
-}
-
-vector<Card> Player::dropCards(vector<Card> cards_for_Player) {
-    
-    vector<Card> droppedCards;
-
-    for (int i = 0; i < 3; i++) {
-        droppedCards.push_back(cards_for_Player.back());
-        cards_for_Player.pop_back();
-    }
-    return vector<Card>(droppedCards);
-}
-
-void Player::print(vector<Card> cards_for_Player) const {
-
-    for (int i = 0; i < cards_for_Player.size(); i++) {
-        Card point = cards_for_Player[i];
-        point.print();
-
+void Player::addCards(vector<Card> winningCards)
+{
+    for (int i = 0; i < winningCards.size(); i++)
+    {
+        cards.push_back(winningCards[i]);
+        numCards += 1;
+        //remove winningCard that was added to cards
+        winningCards.erase(winningCards.begin() + i);
     }
 }
 
-/* 
+vector<Card> Player::dropCards()
+{
+    //if player has 3 or more cards, drop 3 cards
+    //if not drops what they have and loses game
+    vector<Card> dropCards;
 
-deck -> cards
-hand -> deck
-player -> hand
+    if (numCards >= 3)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            dropCards.push_back(cards.front());
+            cards.pop_front();
+            numCards -= 1;
+        }
+        return dropCards;
+    }
+    else
+    {
+        for (int i = 0; i < numCards; i++)
+        {
+            dropCards.push_back(cards.front());
+            cards.pop_front();
+            numCards -= 1;
+        } 
+        return dropCards;
+    }
 
-cards held in a vector called deck, which is the deck
 
 
+    return vector<Card>();
+}
 
- */
+void Player::print() const
+{
+    for (int i = 0; i < numCards; i++)
+    {
+        
+    }
+}
