@@ -3,7 +3,6 @@
 #include <iostream>
 #include "player.h"
 #include "card.h"
-#include "Lab10.cpp"
 #include "deck.h"
 
 Player::Player() {
